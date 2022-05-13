@@ -1,0 +1,16 @@
+﻿@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+title 日账单结算时序图
+
+业务端 -> 业务端: 日账单生成
+业务端 -> 业务端: 日账单确认账单
+业务端 -> MQ: 发送结算MQ
+MQ -> 中台: 接收结算MQ
+中台 -> 中台: 结算金额校验
+中台 -> 中台: 生成结算单
+中台 -> MQ: 发送结算结果MQ
+MQ -> 业务端:接收结算结果MQ并进行后续状态修改
+
+@enduml
